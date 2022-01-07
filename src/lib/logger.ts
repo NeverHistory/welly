@@ -2,7 +2,7 @@ import chalk from "chalk";
 import ora, {Ora} from "ora";
 import logSymbols from "log-symbols";
 
-const GITHUB_URL = "https://github.com/no/clue";
+const GITHUB_URL = "https://github.com/ilikesolutions/welly/issues";
 
 export function logWelly(): void {
     console.log(chalk.cyan(" __      __       .__  .__         \n") +

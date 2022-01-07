@@ -5,8 +5,7 @@
   "exports": "./dist/index.js",
   "type": "module",
   "bugs": {
-    "url": "https://github.com/owner/project/issues",
-    "email": "project@hostname.com"
+    "url": "https://github.com/ilikesolutions/welly/issues"
   },
   "bin": {
     "welly": "dist/index.js"
