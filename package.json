@@ -1,6 +1,6 @@
 {
   "name": "welly",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A cli for creating a cloud function backend",
   "exports": "./dist/index.js",
   "type": "module",
