@@ -1,6 +1,6 @@
 {
   "name": "welly",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A cli for creating a cloud function backend",
   "exports": "./dist/index.js",
   "type": "module",
@@ -16,7 +16,7 @@
     "build:prod": "NODE_ENV=production tsc",
     "clean": "rm -rf dist/",
     "start": "npm run clean && npm run build",
-    "postinstall": "husky install",
+    "prepare": "husky install",
     "lint": "eslint src --fix",
     "lint:prod": "eslint src"
   },
