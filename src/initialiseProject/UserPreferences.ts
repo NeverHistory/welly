@@ -98,7 +98,7 @@ export class UserPreferences {
             logger.info(" I assume you know how to setup and deploy your IaC");
         } else if (this.cloudProvider == "AWS" && this.infrastructureAsCode == "Terraform") {
             logger.info(` 1.   Setup your S3 Backend configuration https://www.terraform.io/language/settings/backends/s3 in ${chalk.blue("versions.tf")}`);
-            logger.info(" 2.   Start running the build using " + chalk.bgGray("welly it"));
+            logger.info(" 2.   Start running the build using " + chalk.bgGray("npm start"));
             logger.info(" 3.   Run a full deploy using the CLI");
             logger.info(" 4.   Test your deployment using " + chalk.bgGray(`curl "$(cd ${this.projectDir}${sep}terraform && terraform output -raw base_url)"/`));
             logger.info(" 5.   Make your changes and run fast deploys");
