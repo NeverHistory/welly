@@ -3,7 +3,6 @@
 import {initialiseProject} from "./initialiseProject/index.js";
 import {runBuild} from "./build/index.js";
 import {logger} from "./lib/logger.js";
-import {runDeploy} from "./deploy/index.js";
 
 async function main(): Promise<void> {
     const cmdArgs = process.argv;
@@ -17,14 +16,7 @@ async function main(): Promise<void> {
         case "build":
             runBuild({});
             break;
-        case "fast":
-            await runDeploy({fast: true});
-            break;
-        case "full":
-            await runDeploy({fast: false});
-            break;
         }
-
     }
 }
 

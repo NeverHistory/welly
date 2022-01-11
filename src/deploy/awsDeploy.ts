@@ -1,3 +1,4 @@
-export async function awsDeploy(): Promise<void> {
+export async function awsDeploy(pathToZips:string[]): Promise<void> {
     console.log("her");
 }
+

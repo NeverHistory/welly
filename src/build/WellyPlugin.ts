@@ -12,7 +12,7 @@ export const WellyPlugin: Plugin = {
     setup(build) {
         build.onEnd(() => {
             if (build.initialOptions.watch) {
-                const CLI = new KeyInterface();
+                const CLI = new KeyInterface(build.initialOptions);
                 CLI.refreshConsole();
                 CLI.listen();
             }

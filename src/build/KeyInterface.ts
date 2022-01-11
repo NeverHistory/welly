@@ -4,6 +4,7 @@ import {loadWellyRC} from "../lib/wellyRC.js";
 import {proc} from "../lib/lib.js";
 import chalk from "chalk";
 import {runDeploy} from "../deploy/index.js";
+import { BuildOptions } from "esbuild";
 
 const SPACING = 40;
 const CUT_OFF = 20;
@@ -11,9 +12,11 @@ const CUT_OFF = 20;
 export class KeyInterface {
 
     private readonly wellyRC;
+    private readonly buildOptions;
 
-    constructor() {
+    constructor(buildOptions: BuildOptions) {
         this.wellyRC = loadWellyRC();
+        this.buildOptions = buildOptions;
     }
 
     listen(): void {
@@ -25,9 +28,9 @@ export class KeyInterface {
             } else if (key.name === "c") {
                 this.refreshConsole();
             } else if (key.name === "f") {
-                await runDeploy({fast: true});
+                await runDeploy({fast: true}, this.buildOptions);
             } else if (key.name === "d") {
-                await runDeploy({fast: false});
+                await runDeploy({fast: false},this.buildOptions);
             } else if (Object.keys(this.wellyRC.commands).includes(key.name)) {
                 const spinner = logger.loading(`Running ${this.wellyRC.commands[key.name]}`);
                 await proc(this.wellyRC.commands[key.name])
