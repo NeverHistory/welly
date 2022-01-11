@@ -1,5 +1,5 @@
 import {UserPreferences} from "./UserPreferences.js";
-import path, {dirname, sep} from "path";
+import {dirname, sep} from "path";
 import {proc} from "../lib/lib.js";
 import {copySync, ensureDirSync} from "fs-extra";
 import {rmSync} from "fs";

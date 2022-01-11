@@ -21,7 +21,7 @@ export async function runDeploy(props: Deploy, buildOptions: BuildOptions): Prom
         return;
     }
     logger.info("uuuh... im doing smthing quickly");
-
+    logger.debug(JSON.stringify(buildOptions));
     // const cacheHandler = new CacheHandler(buildOptions);
     //
     // if (wellyRC.fast_deploy.cloudProvider === "AWS") {

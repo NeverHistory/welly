@@ -16,17 +16,13 @@ export class CacheHandler {
     }
 
     findNewZips(): string[] {
-        readdirSync(this.buildOptions.outdir, {withFileTypes: true})
-            .filter(dirent => path.extname(dirent.name) === ".zip")
-            .forEach(dirent => {
-
-            });
+        // readdirSync(this.buildOptions.outdir, {withFileTypes: true})
+        //     .filter(dirent => path.extname(dirent.name) === ".zip")
+        //     .forEach(dirent => {
+        //
+        //     });
 
         return ["h"];
-    }
-
-    persist(): void {
-
     }
 
     private static loadCache(): { [zipFile: string]: string } {
