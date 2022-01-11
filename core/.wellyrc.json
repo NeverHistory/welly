@@ -1,0 +1,9 @@
+{
+  "iac_dir": "",
+  "full_deploy": "",
+  "fast_deploy": "",
+  "esbuild": {},
+  "commands": {
+    "e": "echo \"this is an example\""
+  }
+}

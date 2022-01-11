@@ -1,0 +1,1 @@
+export const exampleString = "Welly is easy";

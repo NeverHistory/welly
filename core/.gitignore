@@ -1,0 +1,7 @@
+node_modules/
+.idea/
+dist/
+package-lock.json
+terraform/.terraform
+terraform/.terraform.lock.hcl
+tf.sh

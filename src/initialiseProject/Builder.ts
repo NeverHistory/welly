@@ -1,10 +1,10 @@
 import {UserPreferences} from "./UserPreferences.js";
-import {sep} from "path";
+import path, {dirname, sep} from "path";
 import {proc} from "../lib/lib.js";
-import templates from "./templates.js";
-import {ensureDirSync} from "fs-extra";
+import {copySync, ensureDirSync} from "fs-extra";
 import {rmSync} from "fs";
 import {logger} from "../lib/logger.js";
+import {fileURLToPath} from "url";
 
 export class Builder {
     private readonly userPreferences: UserPreferences;
@@ -19,7 +19,7 @@ export class Builder {
         await proc(`git clone ${git} .`, {cwd: cwd}).then(() => {
             rmSync(`${cwd}${sep}.git`, {force: true, recursive: true});
         })
-            .then(() => spinner.succeed("Cloned successfully"))
+            .then(() => spinner.succeed(`Cloned ${logName} successfully`))
             .catch(e => {
                 spinner.fail("Clone failed");
                 logger.error("Do you have git installed?" + JSON.stringify(e, undefined, 2), {kill: true});
@@ -27,7 +27,7 @@ export class Builder {
     }
 
     async init(): Promise<string> {
-        await Builder.pullTemplate(this.userPreferences.projectDir, templates.core, "\"core\"");
+        this.copyCoreDir();
         await this.setupIaC();
 
         return this.userPreferences.projectName;
@@ -37,6 +37,13 @@ export class Builder {
         const iacDir = `${this.userPreferences.projectDir}${sep}${this.userPreferences.iacDir()}`;
         ensureDirSync(iacDir);
         await Builder.pullTemplate(iacDir, this.userPreferences.iacGit(), "for IaC");
+    }
+
+    private copyCoreDir(): void {
+        const __filename = fileURLToPath(import.meta.url);
+        const dirName = dirname(__filename);
+        const coreDir = `${dirName}${sep}..${sep}..${sep}core${sep}`;
+        copySync(coreDir, this.userPreferences.projectDir);
     }
 
 }
