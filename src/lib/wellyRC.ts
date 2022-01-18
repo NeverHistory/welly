@@ -9,9 +9,9 @@ export interface FastDeployConfig {
 }
 
 export interface WellyRC {
-    deploy_dir: string,
-    full_deploy: string,
-    fast_deploy: string | FastDeployConfig,
+    deployDir: string,
+    fullDeploy: string,
+    fastDeploy: string | FastDeployConfig,
     commands?: {
         [key: string]: string
     }

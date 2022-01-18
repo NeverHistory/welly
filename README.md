@@ -32,15 +32,15 @@ work. Most of these properties in `.wellyrc.json` will get populated by our supp
 requires `.wellyrc.json` to be part of the directory where you run all your welly commands specific to building and
 deploying.
 
-### deploy_dir
+### deployDir
 
 This is the directory where you store your infrastructure code.
 
-### full_deploy
+### fullDeploy
 
 This is the command that is being ran when you do a full deployment
 
-### fast_deploy
+### fastDeploy
 
 This is either a string with your custom command to run on a fast deployment, or a configuration object that works with
 one of our supported tempaltes.

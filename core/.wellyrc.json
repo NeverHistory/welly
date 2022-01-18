@@ -1,7 +1,7 @@
 {
-  "deploy_dir": "",
-  "full_deploy": "",
-  "fast_deploy": "",
+  "deployDir": "",
+  "fullDeploy": "",
+  "fastDeploy": "",
   "esbuild": {},
   "commands": {
     "e": "echo \"this is an example\""

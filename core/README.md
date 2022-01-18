@@ -30,12 +30,12 @@ terraform templates be sure to set the backed config.
 
 ### Full deploy
 
-Running a full deployment, takes the script from `.wellyrc.json` under `full_deploy` and runs it. This is expected to
+Running a full deployment, takes the script from `.wellyrc.json` under `fullDeploy` and runs it. This is expected to
 take longer as the full infrastructure is deployed.
 
 ### Fast deploy
 
-Running a fast deployment, takes either the script from `.wellyrc.json` under `fast_deploy` and runs it or it takes the
+Running a fast deployment, takes either the script from `.wellyrc.json` under `fastDeploy` and runs it or it takes the
 config. The config object implies that a supported template is being used. This then proceeds to do a faster update of
 just the function instead of the entire infrastructure.
 

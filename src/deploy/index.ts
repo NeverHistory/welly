@@ -12,19 +12,19 @@ export async function runDeploy(props: Deploy, buildOptions: BuildOptions): Prom
     const wellyRC = loadWellyRC();
 
     if (!props.fast) {
-        await spinnerProc("Running full deploy", wellyRC.full_deploy, `${process.cwd()}${sep}${wellyRC.deploy_dir}`);
+        await spinnerProc("Running full deploy", wellyRC.fullDeploy, `${process.cwd()}${sep}${wellyRC.deployDir}`);
         return;
     }
 
-    if (typeof wellyRC.fast_deploy === "string") {
-        await spinnerProc("Running fast deploy", wellyRC.fast_deploy, `${process.cwd()}${sep}${wellyRC.deploy_dir}`);
+    if (typeof wellyRC.fastDeploy === "string") {
+        await spinnerProc("Running fast deploy", wellyRC.fastDeploy, `${process.cwd()}${sep}${wellyRC.deployDir}`);
         return;
     }
     logger.info("uuuh... im doing smthing quickly");
     logger.debug(JSON.stringify(buildOptions));
     // const cacheHandler = new CacheHandler(buildOptions);
     //
-    // if (wellyRC.fast_deploy.cloudProvider === "AWS") {
+    // if (wellyRC.fastDeploy.cloudProvider === "AWS") {
     //     await awsDeploy(cacheHandler.findNewZips());
     // }
     //

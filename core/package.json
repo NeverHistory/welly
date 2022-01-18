@@ -7,7 +7,8 @@
     "clean": "rimraf dist/",
     "build": "welly it",
     "build:prod": "welly build",
-    "deploy": "welly full",
+    "deploy:full": "welly full",
+    "deploy:fast": "welly fast",
     "start": "npm run clean && npm run build"
   },
   "author": "",
