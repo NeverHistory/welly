@@ -48,7 +48,7 @@ export class Configurator {
     private updateWellyRC(): void {
         const wellyRC = `${this.preferences.projectDir}${sep}.wellyrc.json`;
         const content = JSON.parse(readFileSync(wellyRC, "utf-8")) as WellyRC;
-        content.iac_dir = this.preferences.iacDir();
+        content.deploy_dir = this.preferences.deployDir();
         content.full_deploy = this.preferences.iacDeploy();
         content.fast_deploy = this.preferences.iacLambdas();
         writeFileSync(wellyRC, JSON.stringify(content, undefined, 2));

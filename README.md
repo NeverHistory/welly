@@ -32,7 +32,7 @@ work. Most of these properties in `.wellyrc.json` will get populated by our supp
 requires `.wellyrc.json` to be part of the directory where you run all your welly commands specific to building and
 deploying.
 
-### iac_dir
+### deploy_dir
 
 This is the directory where you store your infrastructure code.
 

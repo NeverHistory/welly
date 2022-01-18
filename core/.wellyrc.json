@@ -1,5 +1,5 @@
 {
-  "iac_dir": "",
+  "deploy_dir": "",
   "full_deploy": "",
   "fast_deploy": "",
   "esbuild": {},

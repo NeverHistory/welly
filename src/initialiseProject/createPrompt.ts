@@ -3,24 +3,22 @@ import PromptUI from "inquirer/lib/ui/prompt";
 
 export enum CloudProvider {AWS = "AWS", custom = "custom"}
 
-export enum IaC {Terraform = "Terraform", Cloudformation = "Cloudformation"}
+export enum IaC {Terraform = "Terraform"}
 
 export interface CustomInputOptions {
     customGit?: string | undefined,
-    customIaCDir?: string | undefined,
+    customDeployDir?: string | undefined,
     customDeploy?: string | undefined,
     customLambdas?: string | undefined,
 }
 
 export interface Answers extends CustomInputOptions {
     projectName: string | undefined,
-    cloudProvider: CloudProvider,
-    IaC?: IaC
+    cloudProvider: CloudProvider
 }
 
 export function createPrompt(): Promise<Answers> & { ui: PromptUI } {
     const whenCustom = (answers: Answers): boolean => answers.cloudProvider === "custom";
-    const whenAws = (answers: Answers): boolean => answers.cloudProvider === "AWS";
 
     const promptArray: QuestionCollection = [
         {
@@ -32,7 +30,7 @@ export function createPrompt(): Promise<Answers> & { ui: PromptUI } {
             type: "list",
             name: "cloudProvider",
             message: "Which deployment template are you going to use?",
-            choices: [{name: "AWS"}, {name: "GCS", disabled: true}, {name: "custom"}],
+            choices: [{name: "AWS"}, {name: "custom"}],
         },
         {
             type: "input",
@@ -42,7 +40,7 @@ export function createPrompt(): Promise<Answers> & { ui: PromptUI } {
         },
         {
             type: "input",
-            name: "customIaCDir",
+            name: "customDeployDir",
             message: "Directory name in the new file structure to store your IaC code: ",
             when: whenCustom
         },
@@ -57,17 +55,7 @@ export function createPrompt(): Promise<Answers> & { ui: PromptUI } {
             name: "customLambdas",
             message: "Command to execute to deploy just your sourcecode: ",
             when: whenCustom
-        },
-        {
-            type: "list",
-            name: "IaC",
-            message: "Which IaC are you comfortable with?",
-            choices: [{name: "Terraform (recommended)"}, {name: "Cloudformation", disabled: true}],
-            when: whenAws,
-            filter(input: string): string {
-                return input.replace(" (recommended)", "");
-            }
-        },
+        }
     ];
 
     return prompt.prompt<Answers>(promptArray);

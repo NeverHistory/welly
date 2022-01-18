@@ -12,12 +12,12 @@ export async function runDeploy(props: Deploy, buildOptions: BuildOptions): Prom
     const wellyRC = loadWellyRC();
 
     if (!props.fast) {
-        await spinnerProc("Running full deploy", wellyRC.full_deploy, `${process.cwd()}${sep}${wellyRC.iac_dir}`);
+        await spinnerProc("Running full deploy", wellyRC.full_deploy, `${process.cwd()}${sep}${wellyRC.deploy_dir}`);
         return;
     }
 
     if (typeof wellyRC.fast_deploy === "string") {
-        await spinnerProc("Running fast deploy", wellyRC.fast_deploy, `${process.cwd()}${sep}${wellyRC.iac_dir}`);
+        await spinnerProc("Running fast deploy", wellyRC.fast_deploy, `${process.cwd()}${sep}${wellyRC.deploy_dir}`);
         return;
     }
     logger.info("uuuh... im doing smthing quickly");

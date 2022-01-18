@@ -1,6 +1,6 @@
 import {sep} from "path";
 import {ensureDirSync} from "fs-extra";
-import {Answers, CustomInputOptions} from "./createPrompt.js";
+import {Answers, CloudProvider, CustomInputOptions, IaC} from "./createPrompt.js";
 import {logger} from "../lib/logger.js";
 import templates from "./templates.js";
 import chalk from "chalk";
@@ -24,16 +24,16 @@ export class UserPreferences {
     constructor(props: Answers) {
         [this.projectName, this.projectDir] = this.validateProjectName(props.projectName);
         this.cloudProvider = props.cloudProvider;
-        if (props.cloudProvider == "custom") {
+        if (props.cloudProvider == CloudProvider.custom) {
             this.customSetup = true;
             this.customCloudSettings = UserPreferences.validateCustomCloud({
                 customGit: props.customGit,
-                customIaCDir: props.customIaCDir,
+                customDeployDir: props.customDeployDir,
                 customDeploy: props.customDeploy,
                 customLambdas: props.customLambdas
             });
         } else {
-            this.infrastructureAsCode = props.IaC;
+            this.infrastructureAsCode = IaC.Terraform;
         }
     }
 
@@ -42,7 +42,7 @@ export class UserPreferences {
             logger.error("I can't work like this mate... you need to give me a git repo!", {kill: true});
         }
 
-        if (!props.customIaCDir) {
+        if (!props.customDeployDir) {
             logger.error("I can't work like this mate... you need to give me a directory where to extract your IaC config!", {kill: true});
         }
 
@@ -56,7 +56,7 @@ export class UserPreferences {
 
         return {
             git: props.customGit,
-            dir: props.customIaCDir,
+            dir: props.customDeployDir,
             deploy: props.customDeploy,
             lambdas: props.customLambdas
         };
@@ -68,7 +68,7 @@ export class UserPreferences {
             : templates[this.cloudProvider.toLowerCase() + "-" + this.infrastructureAsCode.toLowerCase() as keyof typeof templates];
     }
 
-    iacDir(): string {
+    deployDir(): string {
         return this.customSetup ? this.customCloudSettings.dir : this.infrastructureAsCode.toLowerCase();
     }
 
@@ -77,7 +77,7 @@ export class UserPreferences {
             return this.customCloudSettings.deploy;
         }
 
-        if (this.infrastructureAsCode == "Terraform") {
+        if (this.infrastructureAsCode == IaC.Terraform) {
             return "terraform init && terraform apply -auto-approve";
         }
     }
@@ -96,7 +96,7 @@ export class UserPreferences {
     nextSteps(): void {
         if (this.customSetup) {
             logger.info(" I assume you know how to setup and deploy your IaC");
-        } else if (this.cloudProvider == "AWS" && this.infrastructureAsCode == "Terraform") {
+        } else if (this.cloudProvider == CloudProvider.AWS && this.infrastructureAsCode == IaC.Terraform) {
             logger.info(` 1.   Setup your S3 Backend configuration https://www.terraform.io/language/settings/backends/s3 in ${chalk.blue("versions.tf")}`);
             logger.info(" 2.   Start running the build using " + chalk.bgGray("npm start"));
             logger.info(" 3.   Run a full deploy using the CLI");

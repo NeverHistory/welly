@@ -34,9 +34,9 @@ export class Builder {
     }
 
     async setupIaC(): Promise<void> {
-        const iacDir = `${this.userPreferences.projectDir}${sep}${this.userPreferences.iacDir()}`;
-        ensureDirSync(iacDir);
-        await Builder.pullTemplate(iacDir, this.userPreferences.iacGit(), "for IaC");
+        const deployDir = `${this.userPreferences.projectDir}${sep}${this.userPreferences.deployDir()}`;
+        ensureDirSync(deployDir);
+        await Builder.pullTemplate(deployDir, this.userPreferences.iacGit(), "for IaC");
     }
 
     private copyCoreDir(): void {
