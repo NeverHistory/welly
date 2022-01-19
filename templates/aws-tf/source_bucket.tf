@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "source_code_bucket" {
-  bucket = random_pet.bucket_name.id
+  bucket = "lambda-source-${random_pet.bucket_name.id}"
   acl    = "private"
 
   tags = {

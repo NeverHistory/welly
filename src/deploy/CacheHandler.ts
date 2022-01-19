@@ -40,14 +40,15 @@ export class CacheHandler {
         return readdirSync(this.buildOptions.outdir, {withFileTypes: true})
             .filter(dirent => path.extname(dirent.name) === ".zip")
             .map(dirent => {
+                const filePath = `${process.cwd()}${sep}${this.buildOptions.outdir}${sep}${dirent.name}`;
                 if (!this.cache[dirent.name]) {
-                    return dirent.name;
+                    return filePath;
                 }
 
                 const hash = CacheHandler.generateHashOfZip(`${this.buildOptions.outdir}${sep}${dirent.name}`);
                 logger.debug("Hash: " + hash);
                 if (this.cache[dirent.name] != hash) {
-                    return dirent.name;
+                    return filePath;
                 }
 
             });
