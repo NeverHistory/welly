@@ -2,7 +2,6 @@ import {sep} from "path";
 import {ensureDirSync} from "fs-extra";
 import {Answers, CloudProvider, CustomInputOptions, IaC} from "./createPrompt.js";
 import {logger} from "../lib/logger.js";
-import templates from "./templates.js";
 import chalk from "chalk";
 import {FastDeployConfig} from "../lib/wellyRC.js";
 
@@ -16,7 +15,7 @@ type CustomCloudSettings = {
 export class UserPreferences {
     readonly projectName;
     readonly projectDir;
-    private readonly customSetup;
+    readonly customSetup: boolean = false;
     private readonly cloudProvider;
     private readonly infrastructureAsCode;
     private readonly customCloudSettings: CustomCloudSettings;
@@ -62,10 +61,10 @@ export class UserPreferences {
         };
     }
 
-    iacGit(): string {
+    iacTemplate(): string {
         return this.customSetup
             ? this.customCloudSettings.git
-            : templates[this.cloudProvider.toLowerCase() + "-" + this.infrastructureAsCode.toLowerCase() as keyof typeof templates];
+            : this.cloudProvider.toLowerCase() + "-" + this.infrastructureAsCode.toLowerCase();
     }
 
     deployDir(): string {

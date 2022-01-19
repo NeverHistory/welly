@@ -27,23 +27,24 @@ export class Builder {
     }
 
     async init(): Promise<string> {
-        this.copyCoreDir();
-        await this.setupIaC();
+        this.copyTemplateDir("core", this.userPreferences.projectDir);
+        const deployDir = `${this.userPreferences.projectDir}${sep}${this.userPreferences.deployDir()}`;
+        ensureDirSync(deployDir);
+
+        if (this.userPreferences.customSetup) {
+            await Builder.pullTemplate(deployDir, this.userPreferences.iacTemplate(), "for IaC");
+        } else {
+            this.copyTemplateDir(this.userPreferences.iacTemplate(), deployDir);
+        }
 
         return this.userPreferences.projectName;
     }
 
-    async setupIaC(): Promise<void> {
-        const deployDir = `${this.userPreferences.projectDir}${sep}${this.userPreferences.deployDir()}`;
-        ensureDirSync(deployDir);
-        await Builder.pullTemplate(deployDir, this.userPreferences.iacGit(), "for IaC");
-    }
-
-    private copyCoreDir(): void {
+    private copyTemplateDir(templateName: string, destination: string): void {
         const __filename = fileURLToPath(import.meta.url);
         const dirName = dirname(__filename);
-        const coreDir = `${dirName}${sep}..${sep}..${sep}core${sep}`;
-        copySync(coreDir, this.userPreferences.projectDir);
+        const templateDir = `${dirName}${sep}..${sep}..${sep}templates${sep}${templateName}${sep}`;
+        copySync(templateDir, destination);
     }
 
 }
