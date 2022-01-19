@@ -9,7 +9,6 @@ export async function spinnerProc(logMessage: string, cmd: string, cwd: string):
     await proc(cmd, {cwd: cwd}).then(({stderr, stdout}) => {
         if (stderr) {
             spinner.fail(stderr);
-
         } else {
             spinner.succeed(stdout);
         }

@@ -1,4 +1,3 @@
-import {logger} from "../lib/logger.js";
 import {loadWellyRC} from "../lib/wellyRC.js";
 import {spinnerProc} from "../lib/lib.js";
 import {sep} from "path";
@@ -19,7 +18,7 @@ export async function runDeploy(props: Deploy, buildOptions: BuildOptions): Prom
     }
 
     if (typeof wellyRC.fastDeploy === "string") {
-        await spinnerProc("Running fast deploy", wellyRC.fastDeploy, `${process.cwd()}${sep}${wellyRC.deployDir}`);
+        await spinnerProc("Running custom fast deploy", wellyRC.fastDeploy, `${process.cwd()}${sep}${wellyRC.deployDir}`);
         return;
     }
 

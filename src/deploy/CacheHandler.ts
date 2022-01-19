@@ -4,6 +4,7 @@ import path, {dirname, sep} from "path";
 import {fileURLToPath} from "url";
 import {ensureFileSync} from "fs-extra";
 import {createHash} from "crypto";
+import {logger} from "../lib/logger";
 
 export class CacheHandler {
 
@@ -44,8 +45,8 @@ export class CacheHandler {
                 }
 
                 const hash = CacheHandler.generateHashOfZip(`${this.buildOptions.outdir}${sep}${dirent.name}`);
-
-                if (!(this.cache[dirent.name] == hash)) {
+                logger.debug("Hash: " + hash);
+                if (this.cache[dirent.name] != hash) {
                     return dirent.name;
                 }
 

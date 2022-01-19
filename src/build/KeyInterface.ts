@@ -3,7 +3,7 @@ import {logger, logWelly} from "../lib/logger.js";
 import {loadWellyRC} from "../lib/wellyRC.js";
 import {proc} from "../lib/lib.js";
 import chalk from "chalk";
-import {runDeploy} from "../deploy/index.js";
+import {runDeploy} from "../deploy";
 import { BuildOptions } from "esbuild";
 
 const SPACING = 40;

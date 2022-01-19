@@ -6,10 +6,10 @@ export enum CloudProvider {AWS = "AWS", custom = "custom"}
 export enum IaC {Terraform = "Terraform"}
 
 export interface CustomInputOptions {
-    customGit?: string | undefined,
-    customDeployDir?: string | undefined,
-    customDeploy?: string | undefined,
-    customLambdas?: string | undefined,
+    customGit?: string,
+    customDeployDir?: string,
+    customDeploy?: string,
+    customLambdas?: string,
 }
 
 export interface Answers extends CustomInputOptions {
