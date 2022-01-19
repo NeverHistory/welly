@@ -2,7 +2,7 @@
   "deployDir": "",
   "fullDeploy": "",
   "fastDeploy": "",
-  "esbuild": {},
+  "build": {},
   "commands": {
     "e": "echo \"this is an example\""
   }

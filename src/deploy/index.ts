@@ -3,6 +3,8 @@ import {loadWellyRC} from "../lib/wellyRC.js";
 import {spinnerProc} from "../lib/lib.js";
 import {sep} from "path";
 import {BuildOptions} from "esbuild";
+import {CacheHandler} from "./CacheHandler.js";
+import {awsDeploy} from "./awsDeploy.js";
 
 interface Deploy {
     fast: boolean;
@@ -20,13 +22,11 @@ export async function runDeploy(props: Deploy, buildOptions: BuildOptions): Prom
         await spinnerProc("Running fast deploy", wellyRC.fastDeploy, `${process.cwd()}${sep}${wellyRC.deployDir}`);
         return;
     }
-    logger.info("uuuh... im doing smthing quickly");
-    logger.debug(JSON.stringify(buildOptions));
-    // const cacheHandler = new CacheHandler(buildOptions);
-    //
-    // if (wellyRC.fastDeploy.cloudProvider === "AWS") {
-    //     await awsDeploy(cacheHandler.findNewZips());
-    // }
-    //
-    // cacheHandler.persist();
+
+    const cacheHandler = new CacheHandler(buildOptions);
+
+    if (wellyRC.fastDeploy.cloudProvider === "AWS") {
+        await awsDeploy(cacheHandler.findNewZips());
+    }
+
 }

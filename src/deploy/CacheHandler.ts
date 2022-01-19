@@ -1,8 +1,9 @@
 import {BuildOptions} from "esbuild";
 import {readdirSync, readFileSync} from "fs";
-import path, {dirname} from "path";
+import path, {dirname, sep} from "path";
 import {fileURLToPath} from "url";
 import {ensureFileSync} from "fs-extra";
+import {createHash} from "crypto";
 
 export class CacheHandler {
 
@@ -13,16 +14,6 @@ export class CacheHandler {
     constructor(buildOptions: BuildOptions) {
         this.buildOptions = buildOptions;
         this.cache = CacheHandler.loadCache();
-    }
-
-    findNewZips(): string[] {
-        // readdirSync(this.buildOptions.outdir, {withFileTypes: true})
-        //     .filter(dirent => path.extname(dirent.name) === ".zip")
-        //     .forEach(dirent => {
-        //
-        //     });
-
-        return ["h"];
     }
 
     private static loadCache(): { [zipFile: string]: string } {
@@ -38,5 +29,26 @@ export class CacheHandler {
         }
 
         return cache;
+    }
+
+    private static generateHashOfZip(pathToZip: string): string {
+        return createHash("MD5").update(readFileSync(pathToZip)).digest("hex");
+    }
+
+    findNewZips(): string[] {
+        return readdirSync(this.buildOptions.outdir, {withFileTypes: true})
+            .filter(dirent => path.extname(dirent.name) === ".zip")
+            .map(dirent => {
+                if (!this.cache[dirent.name]) {
+                    return dirent.name;
+                }
+
+                const hash = CacheHandler.generateHashOfZip(`${this.buildOptions.outdir}${sep}${dirent.name}`);
+
+                if (!(this.cache[dirent.name] == hash)) {
+                    return dirent.name;
+                }
+
+            });
     }
 }

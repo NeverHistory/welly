@@ -15,7 +15,7 @@ export interface WellyRC {
     commands?: {
         [key: string]: string
     }
-    esbuild?: BuildOptions
+    build?: BuildOptions
 }
 
 export function loadWellyRC(): WellyRC {

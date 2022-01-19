@@ -45,7 +45,7 @@ This is the command that is being ran when you do a full deployment
 This is either a string with your custom command to run on a fast deployment, or a configuration object that works with
 one of our supported tempaltes.
 
-### esbuild
+### build
 
 TBA
 
@@ -60,7 +60,7 @@ run `eslint` without having to have another window to run this in.
 
 Currently, there is not a difference. It would be nice to have different configs for one or the other
 
-## Esbuild config
+## Build config
 
 There is the option to pass the esbuild in the `.wellyRC.json` as the interface expects it, however currently that does
 not do anything.
