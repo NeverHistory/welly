@@ -9,3 +9,8 @@ output "source_bucket" {
   value = aws_s3_bucket.source_code_bucket.bucket_domain_name
   description = "This one has to be here so we can use it in our fast build"
 }
+
+output "bucket_region"{
+  value = aws_s3_bucket.source_code_bucket.region
+  description = "We need this to upload in the correct region during fast builds"
+}
