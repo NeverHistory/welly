@@ -1,3 +1,10 @@
+provider "aws" {
+  region = var.aws_region
+}
+
+data "aws_region" "current" {}
+
+
 terraform {
   required_providers {
     aws = {
@@ -5,12 +12,10 @@ terraform {
       version = "~> 3.48.0"
     }
   }
-
-  required_version = "~> 1.0"
-
   backend "s3" {
     bucket = ""
     key    = ""
     region = "eu-central-1"
   }
+  required_version = "~> 1.0"
 }

@@ -6,6 +6,7 @@ import {logger} from "./lib/logger.js";
 
 async function main(): Promise<void> {
     const cmdArgs = process.argv;
+    logger.debug(JSON.stringify(cmdArgs));
     if (cmdArgs.length == 2) {
         initialiseProject();
     } else if (cmdArgs.length >= 3) {
@@ -15,6 +16,9 @@ async function main(): Promise<void> {
             break;
         case "build":
             runBuild({});
+            break;
+        default:
+            logger.info("Please use one of it or build");
             break;
         }
     }

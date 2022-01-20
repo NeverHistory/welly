@@ -25,7 +25,7 @@ export async function runDeploy(props: Deploy, buildOptions: BuildOptions): Prom
     const cacheHandler = new CacheHandler(buildOptions);
 
     if (wellyRC.fastDeploy.cloudProvider === "AWS") {
-        await awsDeploy(cacheHandler.findNewZips());
+        await awsDeploy(cacheHandler.findNewZips(), wellyRC.fastDeploy.iac, wellyRC.deployDir);
     }
 
 }

@@ -1,15 +1,16 @@
 import {BuildOptions} from "esbuild";
-import {readdirSync, readFileSync} from "fs";
+import {existsSync, readdirSync, readFileSync} from "fs";
 import path, {dirname, sep} from "path";
-import {fileURLToPath} from "url";
-import {ensureFileSync} from "fs-extra";
 import {createHash} from "crypto";
-import {logger} from "../lib/logger";
+import {logger} from "../lib/logger.js";
+import legacy_CJS from "fs-extra";
+import {fileURLToPath} from "url";
+
+const {ensureFileSync} = legacy_CJS;
 
 export class CacheHandler {
 
     private readonly buildOptions;
-
     private readonly cache;
 
     constructor(buildOptions: BuildOptions) {
@@ -18,12 +19,15 @@ export class CacheHandler {
     }
 
     private static loadCache(): { [zipFile: string]: string } {
-        const __filename = fileURLToPath(import.meta.url);
-        const dirName = dirname(__filename);
-        const zips = `${dirName}/.cache/zips.json`;
-        ensureFileSync(zips);
+        const __dirname = dirname(fileURLToPath(import.meta.url));
+        const zips = `${__dirname}/.cache/zips.json`;
 
-        let cache = JSON.parse(readFileSync(zips, "utf-8"));
+        let cache ={};
+        if (existsSync(zips)) {
+            cache = JSON.parse(readFileSync(zips, "utf-8"));
+        }else{
+            ensureFileSync(zips);
+        }
 
         if (!cache) {
             cache = {};

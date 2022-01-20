@@ -23,6 +23,6 @@ export function runBuild(props: BuildProps): void {
         minify: !props.watch,
         // this will override everything before this point if set
         ...wellyRC.build,
-        plugins: wellyRC.build.plugins.length > 0 ? [WellyPlugin].concat(wellyRC.build.plugins) : [WellyPlugin],
+        plugins: wellyRC.build.plugins && wellyRC.build.plugins.length > 0 ? [WellyPlugin].concat(wellyRC.build.plugins) : [WellyPlugin],
     });
 }

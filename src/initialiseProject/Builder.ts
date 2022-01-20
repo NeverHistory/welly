@@ -41,9 +41,8 @@ export class Builder {
     }
 
     private copyTemplateDir(templateName: string, destination: string): void {
-        const __filename = fileURLToPath(import.meta.url);
-        const dirName = dirname(__filename);
-        const templateDir = `${dirName}${sep}..${sep}..${sep}templates${sep}${templateName}${sep}`;
+        const __dirname = dirname(fileURLToPath(import.meta.url));
+        const templateDir = `${__dirname}${sep}..${sep}..${sep}templates${sep}${templateName}${sep}`;
         copySync(templateDir, destination);
     }
 

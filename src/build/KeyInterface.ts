@@ -3,8 +3,8 @@ import {logger, logWelly} from "../lib/logger.js";
 import {loadWellyRC} from "../lib/wellyRC.js";
 import {proc} from "../lib/lib.js";
 import chalk from "chalk";
-import {runDeploy} from "../deploy";
-import { BuildOptions } from "esbuild";
+import {runDeploy} from "../deploy/index.js";
+import {BuildOptions} from "esbuild";
 
 const SPACING = 40;
 const CUT_OFF = 20;
@@ -30,7 +30,7 @@ export class KeyInterface {
             } else if (key.name === "f") {
                 await runDeploy({fast: true}, this.buildOptions);
             } else if (key.name === "d") {
-                await runDeploy({fast: false},this.buildOptions);
+                await runDeploy({fast: false}, this.buildOptions);
             } else if (Object.keys(this.wellyRC.commands).includes(key.name)) {
                 const spinner = logger.loading(`Running ${this.wellyRC.commands[key.name]}`);
                 await proc(this.wellyRC.commands[key.name])
